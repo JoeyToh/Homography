@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(initial_alignment)
+project(src)
 
 find_package(Ceres REQUIRED COMPONENTS EigenSparse)
 find_package(PkgConfig REQUIRED)
