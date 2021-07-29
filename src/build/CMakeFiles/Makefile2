@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/hopermf/Desktop/intern_joey/Map-Alignment-Nonrigid-Optimization-2D/initial_alignment
+CMAKE_SOURCE_DIR = /home/hopermf/catkin_ws/src/map_aligner_optimizer/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/hopermf/Desktop/intern_joey/Map-Alignment-Nonrigid-Optimization-2D/initial_alignment/build
+CMAKE_BINARY_DIR = /home/hopermf/catkin_ws/src/map_aligner_optimizer/src/build
 
 #=============================================================================
 # Target rules for target CMakeFiles/homography.dir
@@ -66,7 +66,7 @@ CMAKE_BINARY_DIR = /home/hopermf/Desktop/intern_joey/Map-Alignment-Nonrigid-Opti
 CMakeFiles/homography.dir/all:
 	$(MAKE) -f CMakeFiles/homography.dir/build.make CMakeFiles/homography.dir/depend
 	$(MAKE) -f CMakeFiles/homography.dir/build.make CMakeFiles/homography.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/hopermf/Desktop/intern_joey/Map-Alignment-Nonrigid-Optimization-2D/initial_alignment/build/CMakeFiles --progress-num=1,2 "Built target homography"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/hopermf/catkin_ws/src/map_aligner_optimizer/src/build/CMakeFiles --progress-num=1,2 "Built target homography"
 .PHONY : CMakeFiles/homography.dir/all
 
 # Include target in all.
@@ -76,9 +76,9 @@ all: CMakeFiles/homography.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/homography.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hopermf/Desktop/intern_joey/Map-Alignment-Nonrigid-Optimization-2D/initial_alignment/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hopermf/catkin_ws/src/map_aligner_optimizer/src/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/homography.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hopermf/Desktop/intern_joey/Map-Alignment-Nonrigid-Optimization-2D/initial_alignment/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hopermf/catkin_ws/src/map_aligner_optimizer/src/build/CMakeFiles 0
 .PHONY : CMakeFiles/homography.dir/rule
 
 # Convenience name for target.

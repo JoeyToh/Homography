@@ -1,65 +1,3 @@
-// Ceres Solver - A fast non-linear least squares minimizer
-// Copyright 2015 Google Inc. All rights reserved.
-// http://ceres-solver.org/
-//
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions are met:
-//
-// * Redistributions of source code must retain the above copyright notice,
-//   this list of conditions and the following disclaimer.
-// * Redistributions in binary form must reproduce the above copyright notice,
-//   this list of conditions and the following disclaimer in the documentation
-//   and/or other materials provided with the distribution.
-// * Neither the name of Google Inc. nor the names of its contributors may be
-//   used to endorse or promote products derived from this software without
-//   specific prior written permission.
-//
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
-// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-// POSSIBILITY OF SUCH DAMAGE.
-//
-// Copyright (c) 2014 libmv authors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to
-// deal in the Software without restriction, including without limitation the
-// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
-// sell copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-// IN THE SOFTWARE.
-//
-// Author: sergey.vfx@gmail.com (Sergey Sharybin)
-//
-// This file demonstrates solving for a homography between two sets of points.
-// A homography describes a transformation between a sets of points on a plane,
-// perspectively projected into two images. The first step is to solve a
-// homogeneous system of equations via singular value decomposition, giving an
-// algebraic solution for the homography, then solving for a final solution by
-// minimizing the symmetric transfer error in image space with Ceres (called the
-// Gold Standard Solution in "Multiple View Geometry"). The routines are based
-// on the routines from the Libmv library.
-//
-// This example demonstrates custom exit criterion by having a callback check
-// for image-space error.
-
 #include "Homography.h"
 
 typedef Eigen::NumTraits<double> EigenDouble;
@@ -313,51 +251,6 @@ class TerminationCheckingCallback : public ceres::IterationCallback {
   Mat3* H_;
 };
 
-
-class TransformResidual
-{
-public:
-  TransformResidual(
-    double level_x,
-    double level_y,
-    double level_meters_per_pixel,
-    double layer_x,
-    double layer_y)
-  : _level_x(level_x),
-    _level_y(level_y),
-    _level_meters_per_pixel(level_meters_per_pixel),
-    _layer_x(layer_x),
-    _layer_y(layer_y)
-  {
-  }
-
-  template<typename T>
-  bool operator()(
-    const T* const yaw,
-    const T* const scale,
-    const T* const translation,
-    T* residual) const
-  {
-    const T qx =
-      (( cos(yaw[0]) * _layer_x + sin(yaw[0]) * _layer_y) * scale[0]
-      + translation[0]) / _level_meters_per_pixel;
-
-    const T qy =
-      ((-sin(yaw[0]) * _layer_x + cos(yaw[0]) * _layer_y) * scale[0]
-      + translation[1]) / _level_meters_per_pixel;
-
-    residual[0] = _level_x - qx;
-    residual[1] = _level_y - qy;
-
-    return true;
-  }
-
-private:
-  double _level_x, _level_y;
-  double _level_meters_per_pixel;
-  double _layer_x, _layer_y;
-};
-
 bool EstimateHomography2DFromCorrespondences(const Mat& x1, const Mat& x2,
                       const EstimateHomographyOptions& options, Mat3* H) {
   assert(2 == x1.rows());
@@ -386,15 +279,6 @@ bool EstimateHomography2DFromCorrespondences(const Mat& x1, const Mat& x2,
            H->data());
   }
 
-// double yaw;
-// double scale;
-// double translation[2];
-
-//   for (int i = 0; i < x1.cols(); i++) {
-//     TransformResidual* tr = new TransformResidual(x1(0, i), x1(1, i), 0.05, x2(0, i), x2(1, i));
-//     problem.AddResidualBlock(
-//       new ceres::AutoDiffCostFunction<TransformResidual, 2, 1, 1, 2>(tr), nullptr, &yaw, &scale, &translation[0]);
-//   }
   // Configure the solve.
   ceres::Solver::Options solver_options;
   solver_options.linear_solver_type = ceres::DENSE_QR;
@@ -411,9 +295,6 @@ bool EstimateHomography2DFromCorrespondences(const Mat& x1, const Mat& x2,
   ceres::Solve(solver_options, &problem, &summary);
   LOG(INFO) << "Summary:\n" << summary.FullReport();
   LOG(INFO) << "Final refined matrix:\n" << *H;
-  // LOG(INFO) << "Yaw: " << yaw;
-  // LOG(INFO) << "Scale: " << scale;
-  // LOG(INFO) << "Translation: " << translation[0];
 
   return summary.IsSolutionUsable();
 }
@@ -463,7 +344,7 @@ Mat initialise_input_matrix(string arr, int num) {
 }
 
 tuple<Mat, Mat> pointsParser(Json::Reader reader) {
-  ifstream file("/home/hopermf/catkin_ws/src/mao/api/storage/alignment/input/points.json");
+  ifstream file("../api/storage/alignment/input/points.json");
   Json::Value pointsJson;
   reader.parse(file, pointsJson);
   string points1 = pointsJson[0]["points"].toStyledString();
@@ -488,25 +369,25 @@ tuple<Mat, Mat> pointsParser(Json::Reader reader) {
 }
 
 tuple<int, double> paramsParser(Json::Reader reader) {
-  ifstream dist("/home/hopermf/catkin_ws/src/mao/api/storage/alignment/input/ave_sym_dist.json");
+  ifstream dist("../api/storage/alignment/input/ave_sym_dist.json");
   Json::Value distJson;
   reader.parse(dist, distJson);
   double ave_sym_dist = distJson["ave_sym_dist"].asDouble();
   dist.close();
 
-  ifstream iter("/home/hopermf/catkin_ws/src/mao/api/storage/alignment/input/max_num_iter.json");
+  ifstream iter("../api/storage/alignment/input/max_num_iter.json");
   Json::Value iterJson;
   reader.parse(iter, iterJson);
-  int max_num_int = iterJson["max_num_iterations"].asInt();
+  int max_num_iter = iterJson["max_num_iterations"].asInt();
   iter.close();
 
-  return {max_num_int, ave_sym_dist};
+  return {max_num_iter, ave_sym_dist};
 }
 
 void store(Mat3 matrix) {
   Json::Value mat;
   Json::Value vec(Json::arrayValue);
-  string path = "/home/hopermf/catkin_ws/src/mao/api/storage/alignment/output/matrix.json";
+  string path = "../api/storage/alignment/output/matrix.json";
 
   for (int i = 0; i < matrix.rows(); i++) {
       Json::Value row(Json::arrayValue);
@@ -528,7 +409,6 @@ int run() {
   FLAGS_logtostderr = 1;
   google::InitGoogleLogging("homography");
 
-  // Parsing input points into matrices
   // string input;
   // getline(cin, input);
   // string delimiter = "]";
@@ -546,16 +426,16 @@ int run() {
 
   // Read input points
   auto [x1, x2] = pointsParser(reader);
-
   // Read input parameters
-  auto [max_num_int, ave_sym_dist] = paramsParser(reader);
+  auto [max_num_iter, ave_sym_dist] = paramsParser(reader);
+  std::cout << x1 << std::endl;
 
   // Defining parameters
   Mat3 estimated_matrix;
   EstimateHomographyOptions options;
   // options.expected_average_symmetric_distance = 1e-16;
   options.expected_average_symmetric_distance = ave_sym_dist;
-  options.max_num_iterations = max_num_int;
+  options.max_num_iterations = max_num_iter;
 
   // Estimate matrix
   EstimateHomography2DFromCorrespondences(x1, x2, options, &estimated_matrix);
