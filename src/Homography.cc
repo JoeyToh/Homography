@@ -344,7 +344,7 @@ Mat initialise_input_matrix(string arr, int num) {
 }
 
 tuple<Mat, Mat> pointsParser(Json::Reader reader) {
-  ifstream file("../api/storage/alignment/input/points.json");
+  ifstream file("../../api/storage/alignment/input/points.json");
   Json::Value pointsJson;
   reader.parse(file, pointsJson);
   string points1 = pointsJson[0]["points"].toStyledString();
@@ -369,13 +369,13 @@ tuple<Mat, Mat> pointsParser(Json::Reader reader) {
 }
 
 tuple<int, double> paramsParser(Json::Reader reader) {
-  ifstream dist("../api/storage/alignment/input/ave_sym_dist.json");
+  ifstream dist("../../api/storage/alignment/input/ave_sym_dist.json");
   Json::Value distJson;
   reader.parse(dist, distJson);
   double ave_sym_dist = distJson["ave_sym_dist"].asDouble();
   dist.close();
 
-  ifstream iter("../api/storage/alignment/input/max_num_iter.json");
+  ifstream iter("../../api/storage/alignment/input/max_num_iter.json");
   Json::Value iterJson;
   reader.parse(iter, iterJson);
   int max_num_iter = iterJson["max_num_iterations"].asInt();
@@ -387,7 +387,7 @@ tuple<int, double> paramsParser(Json::Reader reader) {
 void store(Mat3 matrix) {
   Json::Value mat;
   Json::Value vec(Json::arrayValue);
-  string path = "../api/storage/alignment/output/matrix.json";
+  string path = "../../api/storage/alignment/output/matrix.json";
 
   for (int i = 0; i < matrix.rows(); i++) {
       Json::Value row(Json::arrayValue);
