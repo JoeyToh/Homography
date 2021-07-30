@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 
 project(src)
 
-find_package(Ceres REQUIRED COMPONENTS EigenSparse)
+find_package(Ceres REQUIRED COMPONENTS)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(JSONCPP jsoncpp)
 

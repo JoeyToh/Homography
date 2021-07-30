@@ -8,6 +8,9 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
 )
 
+find_package(Ceres REQUIRED)
+find_package(Eigen3 REQUIRED)
+
 catkin_package(
   CATKIN_DEPENDS roscpp rospy std_msgs message_runtime
 )

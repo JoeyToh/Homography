@@ -1,22 +1,22 @@
 Determining if the pthread_create exist failed with the following output:
 Change Dir: /home/hopermf/catkin_ws/src/map_aligner_optimizer/src/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_8416c/fast"
-/usr/bin/make -f CMakeFiles/cmTC_8416c.dir/build.make CMakeFiles/cmTC_8416c.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_23a68/fast"
+/usr/bin/make -f CMakeFiles/cmTC_23a68.dir/build.make CMakeFiles/cmTC_23a68.dir/build
 make[1]: Entering directory '/home/hopermf/catkin_ws/src/map_aligner_optimizer/src/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_8416c.dir/CheckSymbolExists.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_8416c.dir/CheckSymbolExists.c.o   -c /home/hopermf/catkin_ws/src/map_aligner_optimizer/src/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
-Linking C executable cmTC_8416c
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8416c.dir/link.txt --verbose=1
-/usr/bin/cc      CMakeFiles/cmTC_8416c.dir/CheckSymbolExists.c.o  -o cmTC_8416c 
-CMakeFiles/cmTC_8416c.dir/CheckSymbolExists.c.o: In function `main':
+Building C object CMakeFiles/cmTC_23a68.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_23a68.dir/CheckSymbolExists.c.o   -c /home/hopermf/catkin_ws/src/map_aligner_optimizer/src/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_23a68
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_23a68.dir/link.txt --verbose=1
+/usr/bin/cc      CMakeFiles/cmTC_23a68.dir/CheckSymbolExists.c.o  -o cmTC_23a68 
+CMakeFiles/cmTC_23a68.dir/CheckSymbolExists.c.o: In function `main':
 CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_8416c.dir/build.make:97: recipe for target 'cmTC_8416c' failed
-make[1]: *** [cmTC_8416c] Error 1
+CMakeFiles/cmTC_23a68.dir/build.make:97: recipe for target 'cmTC_23a68' failed
+make[1]: *** [cmTC_23a68] Error 1
 make[1]: Leaving directory '/home/hopermf/catkin_ws/src/map_aligner_optimizer/src/build/CMakeFiles/CMakeTmp'
-Makefile:126: recipe for target 'cmTC_8416c/fast' failed
-make: *** [cmTC_8416c/fast] Error 2
+Makefile:126: recipe for target 'cmTC_23a68/fast' failed
+make: *** [cmTC_23a68/fast] Error 2
 
 File /home/hopermf/catkin_ws/src/map_aligner_optimizer/src/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
 /* */
@@ -36,20 +36,20 @@ int main(int argc, char** argv)
 Determining if the function pthread_create exists in the pthreads failed with the following output:
 Change Dir: /home/hopermf/catkin_ws/src/map_aligner_optimizer/src/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_e69a4/fast"
-/usr/bin/make -f CMakeFiles/cmTC_e69a4.dir/build.make CMakeFiles/cmTC_e69a4.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_3f00c/fast"
+/usr/bin/make -f CMakeFiles/cmTC_3f00c.dir/build.make CMakeFiles/cmTC_3f00c.dir/build
 make[1]: Entering directory '/home/hopermf/catkin_ws/src/map_aligner_optimizer/src/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_e69a4.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_e69a4.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
-Linking C executable cmTC_e69a4
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e69a4.dir/link.txt --verbose=1
-/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_e69a4.dir/CheckFunctionExists.c.o  -o cmTC_e69a4 -lpthreads 
+Building C object CMakeFiles/cmTC_3f00c.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_3f00c.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_3f00c
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3f00c.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_3f00c.dir/CheckFunctionExists.c.o  -o cmTC_3f00c -lpthreads 
 /usr/bin/ld: cannot find -lpthreads
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_e69a4.dir/build.make:97: recipe for target 'cmTC_e69a4' failed
-make[1]: *** [cmTC_e69a4] Error 1
+CMakeFiles/cmTC_3f00c.dir/build.make:97: recipe for target 'cmTC_3f00c' failed
+make[1]: *** [cmTC_3f00c] Error 1
 make[1]: Leaving directory '/home/hopermf/catkin_ws/src/map_aligner_optimizer/src/build/CMakeFiles/CMakeTmp'
-Makefile:126: recipe for target 'cmTC_e69a4/fast' failed
-make: *** [cmTC_e69a4/fast] Error 2
+Makefile:126: recipe for target 'cmTC_3f00c/fast' failed
+make: *** [cmTC_3f00c/fast] Error 2
 
 

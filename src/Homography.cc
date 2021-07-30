@@ -428,7 +428,6 @@ int run() {
   auto [x1, x2] = pointsParser(reader);
   // Read input parameters
   auto [max_num_iter, ave_sym_dist] = paramsParser(reader);
-  std::cout << x1 << std::endl;
 
   // Defining parameters
   Mat3 estimated_matrix;
